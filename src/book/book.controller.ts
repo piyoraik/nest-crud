@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   ParseIntPipe,
@@ -9,7 +10,7 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { Book } from 'src/entities/book.entity';
-import { InsertResult, UpdateResult } from 'typeorm';
+import { DeleteResult, InsertResult, UpdateResult } from 'typeorm';
 import { BookService } from './book.service';
 import { CreateBookDto, UpdateBookDto } from './dto/book.dto';
 
@@ -40,5 +41,10 @@ export class BookController {
     @Body(ValidationPipe) book: UpdateBookDto,
   ): Promise<UpdateResult> {
     return await this.service.update(id, book);
+  }
+
+  @Delete(':id')
+  async delete(@Param('id', new ParseIntPipe()) id): Promise<DeleteResult> {
+    return await this.service.delete(id);
   }
 }

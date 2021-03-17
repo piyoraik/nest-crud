@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Book } from 'src/entities/book.entity';
-import { InsertResult, Repository, UpdateResult } from 'typeorm';
+import { DeleteResult, InsertResult, Repository, UpdateResult } from 'typeorm';
 import { CreateBookDto, UpdateBookDto } from './dto/book.dto';
 
 @Injectable()
@@ -24,5 +24,9 @@ export class BookService {
 
   async update(id: number, book: UpdateBookDto): Promise<UpdateResult> {
     return await this.book.update(id, book);
+  }
+
+  async delete(id: number): Promise<DeleteResult> {
+    return await this.book.delete(id);
   }
 }

@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Post, ValidationPipe } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  ValidationPipe,
+} from '@nestjs/common';
 import { Book } from 'src/entities/book.entity';
 import { InsertResult } from 'typeorm';
 import { BookService } from './book.service';
@@ -11,6 +19,11 @@ export class BookController {
   @Get()
   async bookAll(): Promise<Book[]> {
     return await this.service.findAll();
+  }
+
+  @Get(':id')
+  async bookFind(@Param('id', new ParseIntPipe()) id): Promise<Book> {
+    return await this.service.findOne(id);
   }
 
   @Post()

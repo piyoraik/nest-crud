@@ -14,6 +14,10 @@ export class BookService {
     return await this.book.find();
   }
 
+  async findOne(id: number): Promise<Book> {
+    return await this.book.findOne({ id: id });
+  }
+
   async create(book: CreateBookDto): Promise<InsertResult> {
     return await this.book.insert(book);
   }

@@ -35,7 +35,7 @@ export class BookController {
     return await this.service.create(book);
   }
 
-  @Put(':id/update')
+  @Put(':id')
   async update(
     @Param('id', new ParseIntPipe()) id,
     @Body(ValidationPipe) book: UpdateBookDto,

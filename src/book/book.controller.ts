@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, ValidationPipe } from '@nestjs/common';
 import { Book } from 'src/entities/book.entity';
 import { InsertResult } from 'typeorm';
 import { BookService } from './book.service';
@@ -14,7 +14,9 @@ export class BookController {
   }
 
   @Post()
-  async create(@Body() book: CreateBookDto): Promise<InsertResult> {
+  async create(
+    @Body(ValidationPipe) book: CreateBookDto,
+  ): Promise<InsertResult> {
     return await this.service.create(book);
   }
 }

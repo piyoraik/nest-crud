@@ -5,12 +5,13 @@ import {
   Param,
   ParseIntPipe,
   Post,
+  Put,
   ValidationPipe,
 } from '@nestjs/common';
 import { Book } from 'src/entities/book.entity';
-import { InsertResult } from 'typeorm';
+import { InsertResult, UpdateResult } from 'typeorm';
 import { BookService } from './book.service';
-import { CreateBookDto } from './dto/book.dto';
+import { CreateBookDto, UpdateBookDto } from './dto/book.dto';
 
 @Controller('book')
 export class BookController {
@@ -31,5 +32,13 @@ export class BookController {
     @Body(ValidationPipe) book: CreateBookDto,
   ): Promise<InsertResult> {
     return await this.service.create(book);
+  }
+
+  @Put(':id/update')
+  async update(
+    @Param('id', new ParseIntPipe()) id,
+    @Body(ValidationPipe) book: UpdateBookDto,
+  ): Promise<UpdateResult> {
+    return await this.service.update(id, book);
   }
 }

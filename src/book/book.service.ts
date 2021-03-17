@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Book } from 'src/entities/book.entity';
-import { InsertResult, Repository } from 'typeorm';
-import { CreateBookDto } from './dto/book.dto';
+import { InsertResult, Repository, UpdateResult } from 'typeorm';
+import { CreateBookDto, UpdateBookDto } from './dto/book.dto';
 
 @Injectable()
 export class BookService {
@@ -20,5 +20,9 @@ export class BookService {
 
   async create(book: CreateBookDto): Promise<InsertResult> {
     return await this.book.insert(book);
+  }
+
+  async update(id: number, book: UpdateBookDto): Promise<UpdateResult> {
+    return await this.book.update(id, book);
   }
 }
